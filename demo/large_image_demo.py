@@ -12,9 +12,15 @@ python demo/large_image_demo.py \
 """
 
 import os
+import sys
 import random
 from argparse import ArgumentParser
 from pathlib import Path
+
+# Ensure in-repo OpenMMLab libs are importable when running inside this monorepo
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import mmcv
 import numpy as np

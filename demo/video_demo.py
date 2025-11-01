@@ -12,6 +12,15 @@ python demo/video_demo.py \
 ```
 """
 import argparse
+import os
+import sys
+
+# Make sibling OpenMMLab repos (mmcv, mmengine, mmdetection) importable
+# when running this demo from the `mmyolo` directory within a monorepo.
+# This ensures we use the in-repo versions rather than any site packages.
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import cv2
 import mmcv
@@ -70,7 +79,10 @@ def main():
             args.out, fourcc, video_reader.fps,
             (video_reader.width, video_reader.height))
 
-    for frame in track_iter_progress(video_reader):
+    # mmengine 0.10.x track_iter_progress expects a Sequence or a tuple
+    # (iterable, task_num). mmcv.VideoReader is iterable but isinstance
+    # checks against typing.Sequence will fail, so pass an explicit tuple.
+    for frame in track_iter_progress((video_reader, len(video_reader))):
         result = inference_detector(model, frame, test_pipeline=test_pipeline)
         visualizer.add_datasample(
             name='video',

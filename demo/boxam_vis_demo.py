@@ -10,8 +10,15 @@ bbox and mask, so this script is named bboxam.
 
 import argparse
 import os.path
+import os
+import sys
 import warnings
 from functools import partial
+
+# Ensure in-repo OpenMMLab libs are importable when running inside this monorepo
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import cv2
 import mmcv

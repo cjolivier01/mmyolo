@@ -1,7 +1,13 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import os
+import sys
 from argparse import ArgumentParser
 from pathlib import Path
+
+# Ensure in-repo OpenMMLab libs are importable when running inside this monorepo
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import mmcv
 from mmdet.apis import inference_detector, init_detector
