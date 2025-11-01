@@ -6,7 +6,7 @@ from ..registry import DATASETS
 try:
     from mmrotate.datasets import DOTADataset
     MMROTATE_AVAILABLE = True
-except ImportError:
+except Exception:
     from mmengine.dataset import BaseDataset
     DOTADataset = BaseDataset
     MMROTATE_AVAILABLE = False

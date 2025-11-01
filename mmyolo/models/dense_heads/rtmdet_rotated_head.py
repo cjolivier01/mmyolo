@@ -22,7 +22,7 @@ from .rtmdet_head import RTMDetHead, RTMDetSepBNHeadModule
 try:
     from mmrotate.structures.bbox import RotatedBoxes, distance2obb
     MMROTATE_AVAILABLE = True
-except ImportError:
+except Exception:
     RotatedBoxes = None
     distance2obb = None
     MMROTATE_AVAILABLE = False
