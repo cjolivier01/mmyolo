@@ -57,6 +57,14 @@ def parse_args():
 
 
 def main():
+
+    import mmengine
+    import torch
+
+    torch.serialization.add_safe_globals(
+        [mmengine.logging.history_buffer.HistoryBuffer]
+    )
+
     args = parse_args()
 
     # Reduce the number of repeated compilations and improve
