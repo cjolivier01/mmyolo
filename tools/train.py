@@ -61,9 +61,9 @@ def main():
     import mmengine
     import torch
 
-    torch.serialization.add_safe_globals(
-        [mmengine.logging.history_buffer.HistoryBuffer]
-    )
+    # torch.serialization.add_safe_globals(
+    #     [mmengine.logging.history_buffer.HistoryBuffer]
+    # )
 
     args = parse_args()
 
