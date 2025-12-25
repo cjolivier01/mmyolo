@@ -15,20 +15,20 @@ import argparse
 import os
 import sys
 
-# Make sibling OpenMMLab repos (mmcv, mmengine, mmdetection) importable
-# when running this demo from the `mmyolo` directory within a monorepo.
-# This ensures we use the in-repo versions rather than any site packages.
-_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-if _REPO_ROOT not in sys.path:
-    sys.path.insert(0, _REPO_ROOT)
-
 import cv2
-import mmcv
 from mmcv.transforms import Compose
 from mmdet.apis import inference_detector, init_detector
 from mmengine.utils import track_iter_progress
-
 from mmyolo.registry import VISUALIZERS
+
+import mmcv
+
+# Make sibling OpenMMLab repos (mmcv, mmengine, mmdetection) importable
+# when running this demo from the `mmyolo` directory within a monorepo.
+# This ensures we use the in-repo versions rather than any site packages.
+# _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+# if _REPO_ROOT not in sys.path:
+#     sys.path.insert(0, _REPO_ROOT)
 
 
 def parse_args():
