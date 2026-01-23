@@ -8,8 +8,12 @@ import torch.nn as nn
 from mmdet.models.dense_heads.base_dense_head import BaseDenseHead
 from mmdet.models.utils import filter_scores_and_topk, multi_apply
 from mmdet.structures.bbox import bbox_overlaps
-from mmdet.utils import (ConfigType, OptConfigType, OptInstanceList,
-                         OptMultiConfig)
+from mmdet.utils import (
+    ConfigType,
+    OptConfigType,
+    OptInstanceList,
+    OptMultiConfig,
+)
 from mmengine.config import ConfigDict
 from mmengine.dist import get_dist_info
 from mmengine.logging import print_log
@@ -425,8 +429,7 @@ class YOLOv5Head(BaseDenseHead):
                     results.bboxes -= results.bboxes.new_tensor([
                         pad_param[2], pad_param[0], pad_param[2], pad_param[0]
                     ])
-                results.bboxes /= results.bboxes.new_tensor(
-                    scale_factor).repeat((1, 2))
+                results.bboxes /= scale_factor.detach().clone().repeat((1, 2))
 
             if cfg.get('yolox_style', False):
                 # do not need max_per_img
